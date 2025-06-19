@@ -1,45 +1,70 @@
-import React, { useState } from 'react';
-import {auth} from '../config/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleLogin = async (e) => {
+// src/components/Login.js
+import { useState } from "react";
+import { auth } from "../config/firebase";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword }
+from "firebase/auth";
+const Login = ({ setUser, setUserRole }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("controller"); // default role
+  const [isNewUser, setIsNewUser] = useState(false);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert('Logged in successfully');
-    } catch (err) {
-      alert('Error: ' + err.message);
+      let userCredential;
+      if (isNewUser) {
+        // Create account
+        userCredential = await createUserWithEmailAndPassword(auth, email, 
+password);
+      } else {
+        // Sign in
+        userCredential = await signInWithEmailAndPassword(auth, email, 
+password);
+      }
+      setUser(userCredential.user);
+      setUserRole(role);
+    } catch (error) {
+      console.error("Error during authentication", error);
+      alert(error.message);
     }
   };
-
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">MatMap Login</h2>
-      <form onSubmit={handleLogin} className="space-y-4">
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full p-2 border"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full p-2 border"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2">
-          Login
-        </button>
+    <div>
+      <h2>{isNewUser ? "Sign Up" : "Login"}</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email: </label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required />
+        </div>
+        <div>
+          <label>Password: </label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required />
+        </div>
+        <div>
+          <label>Role: </label>
+          <select value={role} onChange={(e) => setRole(e.target.value)}>
+            <option value="Controller">Controller</option>
+            <option value="Customer">Customer</option>
+          </select>
+        </div>
+        <button type="submit">{isNewUser ? "Sign Up" : "Login"}</button>
       </form>
+      <p>
+        {isNewUser ? "Already have an account?" : "New user?"}{" "}
+        <button onClick={() => setIsNewUser(!isNewUser)}>
+          {isNewUser ? "Login" : "Sign Up"}
+        </button>
+      </p>
     </div>
   );
 };
-
 export default Login;
