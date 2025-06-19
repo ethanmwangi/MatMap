@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Login from './components/Login';
 import Register from './components/Register';
 import DashboardController from './pages/DashboardController'; 
+import DashboardCustomer from './pages/DashboardCustomer';
 
 
 const App = () => {
@@ -20,6 +21,8 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard-controller" element={<DashboardController />} />
+       <Route path="/dashboard-customer" element={<DashboardCustomer />} />
+
         </Routes>
       </div>
     

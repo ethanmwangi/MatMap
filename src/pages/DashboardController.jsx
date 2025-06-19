@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { db } from '../config/firebase';
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { collection, doc, setDoc, Timestamp } from 'firebase/firestore';
+import ControllerUpdates from '../components/ControllerUpdates';
+import { v4 as uuidv4 } from 'uuid';
 
 const DashboardController = () => {
   const [route, setRoute] = useState('');
@@ -12,12 +14,16 @@ const DashboardController = () => {
     e.preventDefault();
 
     try {
-      await addDoc(collection(db, 'fares'), {
+      const postId = uuidv4(); // Generate your own ID
+      const docRef = doc(db, 'fares', postId); // Use it as Firestore doc ID
+
+      await setDoc(docRef, {
         route,
         fare,
         notes,
-        timestamp: Timestamp.now()
+        timestamp: Timestamp.now(),
       });
+
       setMessage('✅ Fare update posted!');
       setRoute('');
       setFare('');
@@ -30,7 +36,7 @@ const DashboardController = () => {
 
   return (
     <div className="max-w-md mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Post Fare Update</h2>
+      <h2 className="text-2xl font-bold mb-4">Post Matatu Update</h2>
 
       {message && <p className="mb-2 text-sm text-green-600">{message}</p>}
 
@@ -64,8 +70,13 @@ const DashboardController = () => {
           Post Update
         </button>
       </form>
+
+      <div className="mt-8">
+        <ControllerUpdates />
+      </div>
     </div>
   );
 };
 
 export default DashboardController;
+
