@@ -6,7 +6,7 @@ function ControllerUpdates() {
   const [updates, setUpdates] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editedData, setEditedData] = useState({ route: '', fare: '', notes: '' });
-  const [filter, setFilter] = useState(''); // <-- Add filter state
+  const [filter, setFilter] = useState('');
 
   const fetchUpdates = async () => {
     const querySnapshot = await getDocs(collection(db, 'fares'));
@@ -55,14 +55,12 @@ function ControllerUpdates() {
     }
   };
 
-  // Filter updates by route name (case-insensitive)
   const filteredUpdates = updates.filter(update =>
     update.route?.toLowerCase().includes(filter.toLowerCase())
   );
 
   return (
     <div>
-      {/* Search bar for filtering controller's posts */}
       <input
         type="text"
         placeholder="Search your posts by route..."
@@ -71,57 +69,83 @@ function ControllerUpdates() {
         onChange={e => setFilter(e.target.value)}
       />
 
-      {filteredUpdates.map((update) => (
-        <div key={update.id} className="border p-4 rounded mb-4 bg-white shadow">
-          {editingId === update.id ? (
-            <div>
-              <input
-                name="route"
-                value={editedData.route}
-                onChange={handleChange}
-                placeholder="Route"
-                className="border p-1 mr-2"
-              />
-              <input
-                name="fare"
-                value={editedData.fare}
-                onChange={handleChange}
-                placeholder="Fare"
-                className="border p-1 mr-2"
-              />
-              <input
-                name="notes"
-                value={editedData.notes}
-                onChange={handleChange}
-                placeholder="Notes"
-                className="border p-1 mr-2"
-              />
-              <button onClick={() => handleSave(update.id)} className="bg-green-600 text-white px-3 py-1 rounded mr-2">Save</button>
-              <button onClick={handleCancel} className="bg-gray-400 text-white px-3 py-1 rounded">Cancel</button>
-            </div>
-          ) : (
-            <>
-              <p><strong>Route:</strong> {update.route}</p>
-              <p><strong>Fare:</strong> {update.fare}</p>
-              <p><strong>Notes:</strong> {update.notes}</p>
-              <div className="flex gap-2 mt-2">
-                <button
-                  onClick={() => handleEdit(update)}
-                  className="bg-blue-600 text-white px-3 py-1 rounded"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(update.id)}
-                  className="bg-red-600 text-white px-3 py-1 rounded"
-                >
-                  Delete
-                </button>
-              </div>
-            </>
-          )}
-        </div>
-      ))}
+      <div
+        className="grid gap-4"
+        style={{
+          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))'
+        }}
+      >
+        {filteredUpdates.map((update) => (
+          <div key={update.id} className="min-w-[350px] border p-4 rounded bg-white shadow">
+            {editingId === update.id ? (
+              <form
+                className="flex flex-col gap-2"
+                onSubmit={e => {
+                  e.preventDefault();
+                  handleSave(update.id);
+                }}
+              >
+                <input
+                  name="route"
+                  value={editedData.route}
+                  onChange={handleChange}
+                  placeholder="Route"
+                  className="border p-2 rounded"
+                />
+                <input
+                  name="fare"
+                  value={editedData.fare}
+                  onChange={handleChange}
+                  placeholder="Fare"
+                  className="border p-2 rounded"
+                />
+                <input
+                  name="notes"
+                  value={editedData.notes}
+                  onChange={handleChange}
+                  placeholder="Notes"
+                  className="border p-2 rounded"
+                />
+                <div className="flex gap-2">
+                  <button
+                    type="submit"
+                    className="bg-green-600 text-white px-3 py-1 rounded w-full"
+                  >
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCancel}
+                    className="bg-gray-400 text-white px-3 py-1 rounded w-full"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <>
+                <p><strong>Route:</strong> {update.route}</p>
+                <p><strong>Fare:</strong> {update.fare}</p>
+                <p><strong>Notes:</strong> {update.notes}</p>
+                <div className="flex gap-2 mt-2">
+                  <button
+                    onClick={() => handleEdit(update)}
+                    className="bg-blue-600 text-white px-3 py-1 rounded"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(update.id)}
+                    className="bg-red-600 text-white px-3 py-1 rounded"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
