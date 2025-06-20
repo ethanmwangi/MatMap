@@ -6,6 +6,7 @@ function ControllerUpdates() {
   const [updates, setUpdates] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editedData, setEditedData] = useState({ route: '', fare: '', notes: '' });
+  const [filter, setFilter] = useState(''); // <-- Add filter state
 
   const fetchUpdates = async () => {
     const querySnapshot = await getDocs(collection(db, 'fares'));
@@ -23,22 +24,21 @@ function ControllerUpdates() {
   };
 
   const handleSave = async (id) => {
-  const updatedDoc = {
-    route: editedData.route.trim(),
-    fare: Number(editedData.fare),  // ensure numeric type
-    notes: editedData.notes.trim(),
+    const updatedDoc = {
+      route: editedData.route.trim(),
+      fare: Number(editedData.fare),
+      notes: editedData.notes.trim(),
+    };
+
+    try {
+      await updateDoc(doc(db, 'fares', id), updatedDoc);
+      setEditingId(null);
+      fetchUpdates();
+    } catch (err) {
+      console.error('⚠️ Error saving update:', err);
+      alert('Something went wrong while saving. Please try again.');
+    }
   };
-
-  try {
-    await updateDoc(doc(db, 'fares', id), updatedDoc);
-    setEditingId(null);
-    fetchUpdates();
-  } catch (err) {
-    console.error('⚠️ Error saving update:', err);
-    alert('Something went wrong while saving. Please try again.');
-  }
-};
-
 
   const handleCancel = () => {
     setEditingId(null);
@@ -55,9 +55,23 @@ function ControllerUpdates() {
     }
   };
 
+  // Filter updates by route name (case-insensitive)
+  const filteredUpdates = updates.filter(update =>
+    update.route?.toLowerCase().includes(filter.toLowerCase())
+  );
+
   return (
     <div>
-      {updates.map((update) => (
+      {/* Search bar for filtering controller's posts */}
+      <input
+        type="text"
+        placeholder="Search your posts by route..."
+        className="w-full p-2 border mb-4"
+        value={filter}
+        onChange={e => setFilter(e.target.value)}
+      />
+
+      {filteredUpdates.map((update) => (
         <div key={update.id} className="border p-4 rounded mb-4 bg-white shadow">
           {editingId === update.id ? (
             <div>
