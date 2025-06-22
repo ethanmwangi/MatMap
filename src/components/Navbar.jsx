@@ -14,7 +14,7 @@ const Navbar = () => {
         <div className="space-x-4">
           <Link to="/" className="hover:underline">Home</Link>
           <Link to="/dashboard-controller" className="hover:underline">Controller</Link>
-          <Link to="/dashboard-customer" className="hover:underline">Customer</Link>
+          <Link to="/dashboard-customer" className="hover:underline">Public View</Link>
           <Link to="/Login" className="hover:underline">Login</Link>
         </div>
       </div>
