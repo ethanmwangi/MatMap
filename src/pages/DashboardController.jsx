@@ -33,7 +33,7 @@ const DashboardController = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4">
+    <div className="max-w-full mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">Post Fare Update</h2>
 
       {message && <p className="mb-2 text-sm text-green-600">{message}</p>}

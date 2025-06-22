@@ -69,17 +69,13 @@ function ControllerUpdates() {
         onChange={e => setFilter(e.target.value)}
       />
 
-      <div
-        className="grid gap-4"
-        style={{
-          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))'
-        }}
-      >
+      {/* ONE grid container for all cards */}
+      <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
         {filteredUpdates.map((update) => (
-          <div key={update.id} className="min-w-[350px] border p-4 rounded bg-white shadow">
+          <div key={update.id} className="border p-6 rounded bg-white shadow w-[240px] ">
             {editingId === update.id ? (
               <form
-                className="flex flex-col gap-2"
+                className="flex flex-col gap-10"
                 onSubmit={e => {
                   e.preventDefault();
                   handleSave(update.id);
