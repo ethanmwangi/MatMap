@@ -4,11 +4,15 @@ import { useState } from "react";
 import { auth } from "../config/firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword }
 from "firebase/auth";
-const Login = ({ setUser, setUserRole }) => {
+import {useNavigate } from "react-router-dom";
+
+const Login = ({ setIsAuthenticated  }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("controller"); // default role
   const [isNewUser, setIsNewUser] = useState(false);
+  const navigate= useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -21,9 +25,11 @@ password);
         // Sign in
         userCredential = await signInWithEmailAndPassword(auth, email, 
 password);
-      }
-      setUser(userCredential.user);
-      setUserRole(role);
+    setIsAuthenticated(true); 
+    navigate("/dashboard-controller");
+      console.log}
+      // setUser(userCredential.user);
+      // setUserRole(role);
     } catch (error) {
       console.error("Error during authentication", error);
       alert(error.message);
