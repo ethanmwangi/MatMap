@@ -70,12 +70,15 @@ function ControllerUpdates() {
       />
 
       {/* ONE grid container for all cards */}
-      <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
+      <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
         {filteredUpdates.map((update) => (
-          <div key={update.id} className="border p-6 rounded bg-white shadow w-[240px] ">
+          <div
+            key={update.id}
+            className="border p-6 rounded-lg bg-white shadow w-full transition-transform duration-200 hover:shadow-xl hover:-translate-y-1 hover:border-blue-600"
+          >
             {editingId === update.id ? (
               <form
-                className="flex flex-col gap-10"
+                className="flex flex-col gap-2"
                 onSubmit={e => {
                   e.preventDefault();
                   handleSave(update.id);
