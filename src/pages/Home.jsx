@@ -28,7 +28,7 @@ const Home = () => (
       <h1 className="text-4xl font-extrabold text-blue-700 dark:text-blue-300 mb-4">Welcome to MatMap</h1>
       <p className="text-lg text-gray-700 dark:text-gray-200 mb-6">
         <span className="font-semibold text-blue-600 dark:text-blue-300">MatMap</span> is your real-time matatu fare tracker for Nairobi and beyond.
-         Instantly view, share, and update fare prices and route notes. Whether you’re a commuter or a controller, MatMap keeps you informed and connected on the go!
+         Saka bei  poa ndo usiwe na stress, MatMap keeps you informed and connected on the go!
       </p>
       <Link
         to="/login"
