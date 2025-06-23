@@ -70,11 +70,12 @@ function ControllerUpdates() {
       />
 
       {/* ONE grid container for all cards */}
+      // ...existing code...
       <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
         {filteredUpdates.map((update) => (
           <div
             key={update.id}
-            className="border p-6 rounded-lg bg-white shadow w-full transition-transform duration-200 hover:shadow-xl hover:-translate-y-1 hover:border-blue-600"
+            className="border p-6 rounded-lg bg-white dark:bg-gray-800 dark:border-gray-700 shadow w-full transition-transform duration-200 hover:shadow-xl hover:-translate-y-1 hover:border-blue-600"
           >
             {editingId === update.id ? (
               <form
@@ -89,21 +90,21 @@ function ControllerUpdates() {
                   value={editedData.route}
                   onChange={handleChange}
                   placeholder="Route"
-                  className="border p-2 rounded"
+                  className="border p-2 rounded dark:bg-gray-900 dark:text-white dark:border-gray-700"
                 />
                 <input
                   name="fare"
                   value={editedData.fare}
                   onChange={handleChange}
                   placeholder="Fare"
-                  className="border p-2 rounded"
+                  className="border p-2 rounded dark:bg-gray-900 dark:text-white dark:border-gray-700"
                 />
                 <input
                   name="notes"
                   value={editedData.notes}
                   onChange={handleChange}
                   placeholder="Notes"
-                  className="border p-2 rounded"
+                  className="border p-2 rounded dark:bg-gray-900 dark:text-white dark:border-gray-700"
                 />
                 <div className="flex gap-2">
                   <button
@@ -123,9 +124,9 @@ function ControllerUpdates() {
               </form>
             ) : (
               <>
-                <p><strong>Route:</strong> {update.route}</p>
-                <p><strong>Fare:</strong> {update.fare}</p>
-                <p><strong>Notes:</strong> {update.notes}</p>
+                <p className="dark:text-blue-300"><strong>Route:</strong> {update.route}</p>
+                <p className="dark:text-gray-200"><strong>Fare:</strong> {update.fare}</p>
+                <p className="dark:text-gray-300"><strong>Notes:</strong> {update.notes}</p>
                 <div className="flex gap-2 mt-2">
                   <button
                     onClick={() => handleEdit(update)}
@@ -145,7 +146,7 @@ function ControllerUpdates() {
           </div>
         ))}
       </div>
-    </div>
+    </div>  
   );
 }
 

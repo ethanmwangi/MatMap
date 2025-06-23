@@ -51,17 +51,18 @@ const DashboardCustomer = () => {
           <p>No fare updates yet. Check back soon!</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {filteredFares.map(fare => (
-            <div
-              key={fare.id}
-              className="border p-6 rounded-lg bg-white shadow transition-transform duration-200 hover:shadow-xl hover:-translate-y-1 hover:border-blue-600"
-            >
-              <h3 className="text-lg font-semibold text-blue-700">{fare.route}</h3>
-              <p><strong>Fare:</strong> KES {fare.fare}</p>
-              {fare.notes && <p><strong>Note:</strong> {fare.notes}</p>}
-              <p className="text-sm text-gray-500">Posted: {fare.timestamp}</p>
-            </div>
+        // chnange for the cards to work well with dark mode
+         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {filteredFares.map(fare => (
+          <div
+            key={fare.id}
+            className="border p-6 rounded-lg bg-white dark:bg-gray-800 dark:border-gray-700 shadow transition-transform duration-200 hover:shadow-xl hover:-translate-y-1 hover:border-blue-600"
+          >
+            <h3 className="text-lg font-semibold text-blue-700 dark:text-blue-300">{fare.route}</h3>
+            <p className="dark:text-gray-200"><strong>Fare:</strong> KES {fare.fare}</p>
+            {fare.notes && <p className="dark:text-gray-300"><strong>Note:</strong> {fare.notes}</p>}
+            <p className="text-sm text-gray-500 dark:text-gray-400">Posted: {fare.timestamp}</p>
+          </div>
           ))}
         </div>
       )}

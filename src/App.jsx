@@ -19,22 +19,22 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
-
-      <div className="p-4">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="/register" element={<Register />} />
-          
-          <Route path="/dashboard-customer" element={<DashboardCustomer />} />
-
-          <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-            <Route
-            path="/dashboard-controller"
-            element={<DashboardController />}
-          />
-          </Route>
-        </Routes>
+      {/* Add dark/light background here */}
+      <div className="min-h-screen bg-blue-50 dark:bg-gray-950 transition-colors duration-300">
+        <div className="p-4">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/dashboard-customer" element={<DashboardCustomer />} />
+            <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+              <Route
+                path="/dashboard-controller"
+                element={<DashboardController />}
+              />
+            </Route>
+          </Routes>
+        </div>
       </div>
     </BrowserRouter>
   );
