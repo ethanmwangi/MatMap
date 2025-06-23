@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => (
-  <div className="min-h-screen flex items-center justify-center bg-blue-50 relative overflow-hidden">
+  <div className="min-h-screen flex items-center justify-center bg-blue-50 dark:bg-gray-950 relative overflow-hidden">
     {/* SVG Pattern Background */}
     <svg
       className="absolute inset-0 w-full h-full opacity-10"
-        xmlns="http://www.w3.org/2000/svg"
+      xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 640 480"
     >
@@ -21,14 +21,14 @@ const Home = () => (
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#pattern)" />
-      </svg>
+    </svg>
 
     {/* Main Content */}
-    <div className="relative z-10 bg-white bg-opacity-90 border border-blue-200 rounded-xl shadow-xl p-10 max-w-xl w-full text-center">
-      <h1 className="text-4xl font-extrabold text-blue-700 mb-4">Welcome to MatMap</h1>
-      <p className="text-lg text-gray-700 mb-6">
-        <span className="font-semibold text-blue-600">MatMap</span> is your real-time matatu fare tracker for Nairobi and beyond.
-        Instantly view, share, and update fare prices and route notes. Whether you’re a commuter or a controller, MatMap keeps you informed and connected on the go!
+    <div className="relative z-10 bg-white bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 border border-blue-200 dark:border-gray-700 rounded-xl shadow-xl p-10 max-w-xl w-full text-center">
+      <h1 className="text-4xl font-extrabold text-blue-700 dark:text-blue-300 mb-4">Welcome to MatMap</h1>
+      <p className="text-lg text-gray-700 dark:text-gray-200 mb-6">
+        <span className="font-semibold text-blue-600 dark:text-blue-300">MatMap</span> is your real-time matatu fare tracker for Nairobi and beyond.
+         Instantly view, share, and update fare prices and route notes. Whether you’re a commuter or a controller, MatMap keeps you informed and connected on the go!
       </p>
       <Link
         to="/login"
@@ -36,7 +36,8 @@ const Home = () => (
       >
         Get Started
          </Link>
-          </div>
+    </div>
   </div>
 );
+
 export default Home;

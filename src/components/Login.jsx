@@ -28,38 +28,39 @@ const Login = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-50">
-      <div className="bg-white border border-blue-200 rounded-lg shadow-lg p-8 w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-blue-700 text-center">
+   // ...existing code...
+    <div className="min-h-screen flex items-center justify-center bg-blue-50 dark:bg-gray-950">
+      <div className="bg-white border border-blue-200 dark:bg-gray-800 dark:border-gray-700 rounded-lg shadow-lg p-8 w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-6 text-blue-700 dark:text-blue-300 text-center">
           {isNewUser ? "Sign Up" : "Login"}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-gray-700 mb-1">Email:</label>
+            <label className="block text-gray-700 dark:text-gray-200 mb-1">Email:</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full border border-blue-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-blue-300 dark:border-gray-700 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-900 dark:text-white"
             />
           </div>
           <div>
-            <label className="block text-gray-700 mb-1">Password:</label>
+            <label className="block text-gray-700 dark:text-gray-200 mb-1">Password:</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full border border-blue-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-blue-300 dark:border-gray-700 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-900 dark:text-white"
             />
           </div>
           <div>
-            <label className="block text-gray-700 mb-1">Role:</label>
+            <label className="block text-gray-700 dark:text-gray-200 mb-1">Role:</label>
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="w-full border border-blue-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-blue-300 dark:border-gray-700 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-900 dark:text-white"
             >
               <option value="Controller">Controller</option>
               <option value="Customer">Customer</option>
@@ -72,18 +73,20 @@ const Login = ({ setIsAuthenticated }) => {
             {isNewUser ? "Sign Up" : "Login"}
           </button>
         </form>
-        <p className="mt-4 text-center text-gray-600">
+        <p className="mt-4 text-center text-gray-600 dark:text-300">
           {isNewUser ? "Already have an account?" : "New user?"}{" "}
           <button
             onClick={() => setIsNewUser(!isNewUser)}
-            className="text-blue-600 hover:underline font-semibold"
+            className="text-blue-600 dark:text-blue-300 hover:underline font-semibold"
             type="button"
-          >
-            {isNewUser ? "Login" : "Sign Up"}
+            >
+                      {isNewUser ? "Login" : "Sign Up"}
           </button>
         </p>
       </div>
     </div>
+            
+        
   );
 };
 
