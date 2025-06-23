@@ -38,10 +38,13 @@ const DashboardCustomer = () => {
 
       {filteredFares.length === 0 && <p>No fare updates yet.</p>}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {filteredFares.map(fare => (
-          <div key={fare.id} className="border p-4 rounded shadow-sm bg-white">
-            <h3 className="text-lg font-semibold">{fare.route}</h3>
+          <div
+            key={fare.id}
+            className="border p-6 rounded-lg bg-white shadow transition-transform duration-200 hover:shadow-xl hover:-translate-y-1 hover:border-blue-600"
+          >
+            <h3 className="text-lg font-semibold text-blue-700">{fare.route}</h3>
             <p><strong>Fare:</strong> KES {fare.fare}</p>
             {fare.notes && <p><strong>Note:</strong> {fare.notes}</p>}
             <p className="text-sm text-gray-500">Posted: {fare.timestamp}</p>
